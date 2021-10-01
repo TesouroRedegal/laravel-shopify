@@ -22,13 +22,14 @@ abstract class TokenUrl
      * @return array
      */
     public function generateParams(string $route, $params = [], bool $absolute = true): array
-    {
+    {   //OVERRIDE
         return [
             Util::getShopifyConfig('route_names.authenticate.token'),
             [
                 'shop' => ShopDomain::fromRequest(Request::instance())->toNative(),
-                'target' => URL::route($route, $params, $absolute),
+                'target' => (URL::route($route, $params, $absolute) === 'saveAuthMediapost')?'home':URL::route($route, $params, $absolute),
             ],
         ];
+        //OVERRIDE
     }
 }
